@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /><title>Fortune's Voronoi algorithm, implemented visually</title><meta name="description" content="Fortune's Voronoi algorithm, implemented visually" /><meta name="keywords" content="Voronoi Fortune Delaunay" /></head><body bgcolor="White" text="Black" link="darkmagenta" vlink="darkmagenta" alink="White" background="background.jpg">
+
+<h1 align="Center">A visual implementation of Fortune's Voronoi algorithm</h1>
+
+<div align="Center"><em>by <a href="http://www.diku.dk/students/duff/index.html">Allan Odgaard</a>
+&amp; <a href="http://www.diku.dk/students/benny/index.html">Benny Kjær Nielsen</a></em></div>
+
+<p align="Right"><em>&quot;I found the animation very entertaining&quot;</em>
+<br />- Steven Fortune
+
+</p><h2>Introduction</h2>
+
+<p>This page briefly describes what a Voronoi diagram is and provides an
+interactive demonstration of how these can be created using <a href="http://cm.bell-labs.com/who/sjf/">Fortune's</a> plain-sweep algorithm.
+
+</p><p>The goal of the page is to give you an <strong>intuitive</strong>
+understanding of how Fortune's algorithm works and how Voronoi diagrams look, so
+if you have  never heard of these diagrams we suggest that you follow some of
+the links given to get a better understanding of the theoretical aspects of
+Voronoi diagrams.
+
+</p><p>A starting point might be <a href="http://www.voronoi.com/IndexNoframes.htm">Voronoi.com</a>, which features a
+lot of Voronoi related stuff.
+
+</p><p>The applet located on this page was created in context with the course <a href="http://www.diku.dk/~pawel/comp-geom/compgeom00.html">&quot;Computational
+Geometry&quot;</a> held by <a href="http://www.diku.dk/users/pawel/">Pawel Winter</a>
+during the spring of 2000 at the department of computer science at the
+university of Copenhagen (<a href="http://www.diku.dk/">DIKU</a>).
+
+<!-- ================================= -->
+</p><h2>What is a Voronoi diagram?</h2>
+
+<p><img src="VoronoiDiagram.GIF" width="206" height="108" border="2" align="Right" alt="Example of a Voronoi diagram" />Imagine you have a map over a city with
+<em>n</em> cell phone masts. A cell phone always connects to the closest mast,
+so you'd like to split up the city in zones, where each zone has exactly one
+cell phone mast and each location inside such a zone is closest to the cell
+phone mast found in the same zone.
+
+</p><p>The result of such a partitioning is often referred to as a Voronoi diagram
+and can be created in <em>O(n log n)</em> time by various algorithms. This is
+also a lower limit.
+
+<!-- ================================= -->
+</p><h2>Using a Voronoi diagram</h2>
+
+<p>In the above example we have transformed the problem of finding the closest
+mast to the problem of finding the zone in which we are located (also known as
+the point location problem). This can be determined in logarithmic time instead
+of the linear time, which would be required for finding the nearest mast if no
+preprocessing was done. Naturally you'll need to query the Voronoi diagram more
+than once to make up for this preprocessing time.
+
+</p><p>Though given a Voronoi diagram we can solve a lot of other geometrical
+problems such as convex hull and Delaunay triangulation.
+
+<!-- ================================= -->
+</p><h2>Implementation details</h2>
+
+<p>Our implementation is based on the explanation given in the book entitled
+<a href="http://www.cs.ruu.nl/geobook/">Computational Geometry: Algorithms and
+Applications.</a>
+
+</p><p>An online explanation of the details in Fortune's algorithm is carefully
+described by <a href="http://www.cg.tuwien.ac.at/studentwork/CESCG99/RCuk/">Èuk
+Roman</a> and can be found at his page.
+
+</p><p>It should be emphasized that our implementation does not run in <em>O(n log
+n)</em>. We only wanted to visualize the algorithm and all structures have been
+made as simple as possible to avoid unneccessary complexity. A non-visual
+implementation, done in C, can be found at <a href="http://www.cs.sunysb.edu/~algorith/implement/fortune/implement.shtml">this</a>
+page.
+
+<!-- ================================= -->
+</p><h2>The source</h2>
+
+<p>The source is available as a gzip'ed tar <a href="fortune.tar.gz">archive</a>
+(5.5 Kb). Unfortunately we managed to delete the source, but thanks to <a href="http://www.geocities.com/SiliconValley/Bridge/8617/jad.html">Jad</a> (a
+JAVA decompiler) we were able to get it back, but all comments and local
+variable names were lost. Furthermore this has resulted in a not 100% strict
+coding style, since most of it was produced by Jad. This is also our first
+program made in Java, so if you find any stupid or meaningless constructions
+then please <a href="http://diku.dk/hjemmesider/studerende/duff/" java>write us</a> since
+we wouldn't want to repeat these errors.
+
+<!-- ================================= -->
+</p><h2>The applet</h2>
+
+<h3>How to use it</h3>
+
+<p>You control the program with your mouse. At any time you can click on the
+right side of the sweep-line to add a point. Below follows an explanation of
+the various buttons and checkboxes.
+
+</p><p></p><table align="Center"><tr><th>Buttons</th><th>Checkboxes
+
+</th></tr><tr><td valign="Top">
+<dl>
+<dt><b>Suspend</b>
+</dt><dd>Halt the incremental movement of the sweep-line.
+</dd><dt><b>Resume</b>
+</dt><dd>Continue the incremental movement.
+</dd><dt><b>Next event</b>
+</dt><dd>Move the sweep-line to the next event point, including circle event points.
+</dd><dt><b>Next pixel</b>
+</dt><dd>Move sweep-line a single pixel.
+</dd><dt><b>Clear</b>
+</dt><dd>Clear the canvas.
+</dd><dt><b>Restart</b>
+</dt><dd>Move the sweep-line to the extreme left and restart tracing of the Voronoi diagram.
+</dd></dl>
+
+</td><td valign="Top">
+<dl>
+<dt><b>Circles</b>
+</dt><dd>Enable/disable drawing of circle event points.
+</dd><dt><b>Beachline</b>
+</dt><dd>Enable/disable the beachline.
+</dd><dt><b>Voronoi diagram</b>
+</dt><dd>Enable/disable tracing of the Voronoi diagram.
+</dd><dt><b>Delaunay triangulation</b>
+</dt><dd>Enable/disable Delaunay triangulation.
+</dd></dl>
+
+</td></tr></table>
+
+<h3>Interesting point configurations</h3>
+
+<p>If you draw a perfect circle of points all the zones should meet in the
+center of this circle. Now try to spoil this feature by adding a point in the
+middle of the circle. Even if you didn't succeed in making the circle
+<b>perfect</b> then try it anyway.
+
+</p><hr />
+<p align="Center"><applet code="Fortune.class" width="600" height="400" align="Center"></applet>
+</p><hr />
+
+<h3>Other applets</h3>
+
+<ul>
+<li><a href="http://wwwpi6.fernuni-hagen.de/Geometrie-Labor/VoroGlide/index.html.en">An interactive applet with convex hull, Delaunay triangulation and Voronoi diagram.</a>
+</li><li><a href="http://www.cs.cornell.edu/Info/People/chew/Delaunay.html">Voronoi Diagram / Delaunay Triangulation</a>
+</li><li><a href="http://goanna.cs.rmit.edu.au/~gl/research/comp_geom/delaunay/delaunay.html">A demo and an article comparing the efficiency of Fortune's algorithm with a divide'n'conquer approach.</a>
+</li></ul>
+
+<br />
+
+<hr />
+
+<p align="Right"><a href="http://diku.dk/hjemmesider/studerende/duff/">Webmaster</a> - Created: May 2, 2000 - Last updated: May 17, 2001
+<!-- Visitors since May 17, 2001
+<A HREF="http://www.r-jementerprises.com/counters/makecounter.asp?design=plain2"><IMG SRC="http://www.r-jementerprises.com/cgi-bin/counters/plain2.pl?1772" HEIGHT="25" WIDTH="80" ALT="Free Counter" BORDER="0"></A>
+-->
+</p></body></html>
